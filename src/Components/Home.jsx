@@ -15,7 +15,7 @@ const Home = () => {
               <br />
               Welcome to the <br /> World of <span>AI</span>
             </h1>
-            <p>Create,Explore Collect information</p>
+            <p>Create,Explore & Collect information</p>
             <button className="button">Explore Now</button>
           </div>
           <div className="right">
