@@ -1,0 +1,14 @@
+.appContainer{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg,#0081A7,#00AfB9);
+
+}
+.appGlass{
+  width:90%;
+  height: 90%;
+  border-radius: 20px;
+}
