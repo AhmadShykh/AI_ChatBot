@@ -1,0 +1,34 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["hi", "hello", "hey", "howdy"],
+      "responses": ["Hello! How can I assist you today?", "Hi there! How can I help you?", "Hey! What can I do for you?"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["bye", "goodbye", "see you later", "take care"],
+      "responses": ["Goodbye! Have a great day!", "See you later! Take care.", "Bye! Come back soon."]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["thank you", "thanks", "appreciate it"],
+      "responses": ["You're welcome!", "No problem, happy to help!", "Anytime!"]
+    },
+    {
+      "tag": "help",
+      "patterns": ["help", "support", "assistance"],
+      "responses": ["Sure, what do you need help with?", "How can I assist you?", "I'm here to help, just let me know what you need."]
+    },
+    {
+      "tag": "about_bot",
+      "patterns": ["who are you", "what are you", "tell me about yourself"],
+      "responses": ["I'm a chatbot designed to assist you with your queries regarding apple website. Feel free to ask me anything!"]
+    },
+    {
+      "tag": "fallback",
+      "patterns": ["*"],
+      "responses": ["I'm sorry, I didn't understand that.", "Could you please rephrase that?", "Apologies, I'm not sure I follow."]
+    }
+  ]
+}
