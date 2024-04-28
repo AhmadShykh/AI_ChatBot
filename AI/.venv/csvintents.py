@@ -208,8 +208,7 @@ def generate_intents(csv_file, output_file):
                 gc.collect()  # Trigger garbage collection to release memory
                 intents = {"intents": []}  # Reset intents for the next batch
 
-    with open(output_file, 'w') as outfile:
-        json.dump(intents, outfile, indent=4)
+
 
 def write_intents_to_json(intents, output_file):
     with open(output_file, 'a') as outfile:
