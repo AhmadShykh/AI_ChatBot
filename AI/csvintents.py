@@ -200,13 +200,18 @@ def generate_intents(csv_file, output_file):
                 intents["intents"].append(intent)
 
             row_counter += 1
-            if row_counter % 250 == 0:
+
+
+
+
+            if row_counter  == 1:
                 print(f"Written Rows {row_counter}")
                 # Write intents to JSON file
                 write_intents_to_json(intents, output_file)
                 del intents  # Delete the intents dictionary to free up memory
                 gc.collect()  # Trigger garbage collection to release memory
                 intents = {"intents": []}  # Reset intents for the next batch
+                sys.exit("Reached 1000 rows. Exiting program.")
 
 
 
@@ -216,4 +221,4 @@ def write_intents_to_json(intents, output_file):
         outfile.write('\n')  # Add a newline after each JSON object
 
 # Example usage:
-generate_intents('test_data.csv', 'intents_1.json')
+generate_intents('test_data.csv', 'intents_2.json')

@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 
 # Load the CSV file
-df = pd.read_csv('archive\\steam.csv', delimiter=',')  # Assuming comma-separated data, adjust delimiter if necessary
+df = pd.read_csv('.venv/archive/steam.csv', delimiter=',')  # Assuming comma-separated data, adjust delimiter if necessary
 
 # Apply strip and lowercase operations on each column
 for column in df.columns:
