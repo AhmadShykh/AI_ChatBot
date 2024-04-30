@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 
 # Load the CSV file
-df = pd.read_csv('.venv/archive/steam.csv', delimiter=',')  # Assuming comma-separated data, adjust delimiter if necessary
+df = pd.read_csv('test_data.csv', delimiter=',')  # Assuming comma-separated data, adjust delimiter if necessary
 
 # Apply strip and lowercase operations on each column
 for column in df.columns:
@@ -15,6 +15,9 @@ for column in df.columns:
 # Remove HTML tags from specific columns
 for column in df.columns:
     df[column] = df[column].apply(lambda x: BeautifulSoup(x, 'html.parser').get_text() if isinstance(x, str) else x)
+    df[column] = df[column].apply(lambda x: x.replace('{', '').replace(';',' ').replace('}', '').replace('\r', '').replace('\n', '').replace('\t',
+                                                                                                  '') if isinstance(x,
+                                                                                                                    str) else x)
 
 # Remove special characters from specific columns
 for column in ['name', 'developer', 'publisher']:
@@ -33,7 +36,7 @@ df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
 df['release_year'] = df['release_date'].dt.year
 
 # Save the cleaned DataFrame to a new CSV file
-cleaned_file_path = 'steam_cleaned.csv'
+cleaned_file_path = 'test_data.csv.csv'
 df.to_csv(cleaned_file_path, index=False)
 
 print("DataFrame after additional cleaning steps:\n", df.head())
