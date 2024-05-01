@@ -3,12 +3,24 @@ import json
 
 import torch
 
+from flask import Flask, request, jsonify
+import random
+import json
+from flask import Flask
+from flask_cors import CORS
+
+
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
 
+
+app = Flask(__name__)
+CORS(app)
+
+
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-with open('intents_2.json', 'r') as json_data:
+with open('intents_1.json', 'r') as json_data:
     intents = json.load(json_data)
 
 FILE = "data.pth"
@@ -24,13 +36,11 @@ model = NeuralNet(input_size, hidden_size, output_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
 
-bot_name = "Snake"
-print("Let's chat! (type 'quit' to exit)")
-while True:
-    # sentence = "do you use credit cards?"
-    sentence = input("You: ")
-    if sentence == "quit":
-        break
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.get_json()
+    sentence = data['prompt']
 
     sentence = tokenize(sentence)
     X = bag_of_words(sentence, all_words)
@@ -44,11 +54,21 @@ while True:
 
     probs = torch.softmax(output, dim=1)
     prob = probs[0][predicted.item()]
+
+
+
+    bot_response = ""
+
     if prob.item() > 0.75:
         for intent in intents['intents']:
             if tag == intent["tag"]:
-                print(f"{bot_name}: {random.choice(intent['responses'])}")
-    else:
-        print(f"{bot_name}: I do not understand...")
+                bot_response = random.choice(intent['responses'])
 
+    else:
+        bot_response = "I do not understand..."
+
+    return jsonify({"response": bot_response})
+
+if __name__ == '__main__':
+    app.run(debug=True)  # Run Flask app
 

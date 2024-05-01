@@ -1,27 +1,37 @@
 import React from "react";
+import axios from "axios";
 import "./Prompt.css";
 import { useState } from "react";
 import { LuSend } from "react-icons/lu";
 import p2 from "../assets/p2.png";
 const Prompt = () => {
   const [prompt, setPrompt] = useState(" ");
+  const [response, setResponse] = useState("");
+
   const setValue = (e) => {
     setPrompt(e.target.value);
   };
-  const submit = (e) => {
-    e.preventDefault();
-    setPrompt(" ");
+  const submit = async () => {
+    try {
+      const { data } = await axios.post("http://127.0.0.1:5000/chat", {
+        prompt,
+      });
+      setResponse(data.response);
+      console.log(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
   return (
     <>
       <div className="promptcontainer">
         <div className="main1">
-        <div className="result">
-          <p>Your data set</p>
-        </div>
-        <div className="pic2">
+          <div className="result">
+            <p>{response}</p>
+          </div>
+          <div className="pic2">
             <img src={p2} alt="pic" />
-        </div>
+          </div>
         </div>
 
         <div className="message">
@@ -32,7 +42,7 @@ const Prompt = () => {
             onChange={setValue}
           />
           <button className="btn" onClick={submit}>
-            <LuSend style={{ fontSize: "large" ,textAlign:"center"}} />
+            <LuSend style={{ fontSize: "large", textAlign: "center" }} />
           </button>
         </div>
       </div>
